@@ -2,7 +2,7 @@
 <main class="dev-crud-main">
     <div class="container my-5">
 
-        <h2 class="text-center">Login</h2>
+        <h2 class="text-center my-5">Login</h2>
         
         <form action="" class="w-50 mx-auto text-center">
             <div class="mb-3 d-flex flex-row justify-content-center align-items-center">
