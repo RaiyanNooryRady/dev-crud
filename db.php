@@ -13,5 +13,5 @@ if ($conn->connect_error) {
 
 }
 else {
-    print_r('Database connected successfully');
+    print_r('Database connected successfully <br>');
 }

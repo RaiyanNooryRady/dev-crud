@@ -1,4 +1,5 @@
 <?php include "db.php"; ?>
+<?php include "db-query.php" ?>
 
 <!DOCTYPE html>
 <html lang="en">

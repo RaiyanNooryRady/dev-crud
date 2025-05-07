@@ -4,7 +4,7 @@
 
         <h2 class="text-center my-5">Login</h2>
         
-        <form action="" class="w-50 mx-auto text-center">
+        <form action="" method="POST" class="w-50 mx-auto text-center">
             <div class="mb-3 d-flex flex-row justify-content-center align-items-center">
                 <label for="username" class="form-label me-2">Username</label>
                 <input type="username" class="form-control" id="dev-crud-username" name="username" >
