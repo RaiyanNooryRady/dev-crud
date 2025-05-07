@@ -4,7 +4,7 @@
 
         <h2 class="text-center my-5">Registration</h2>
 
-        <form action="" class="w-50 mx-auto text-center">
+        <form action="" method="POST" class="w-50 mx-auto text-center">
             <div class="mb-3 d-flex flex-row justify-content-center align-items-center">
                 <label for="username" class="form-label me-2">Username</label>
                 <input type="username" class="form-control" id="dev-crud-username" name="username">
@@ -17,8 +17,9 @@
                 <label for="confirm_password" class="form-label me-2">Confirm Password</label>
                 <input type="password" class="form-control" id="dev-crud-confirm-password" name="confirm_password">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" id="dev-crud-register-submit" name="register_submit" class="btn btn-primary">Submit</button>
         </form>
+        <?php dev_crud_register_new_user(); ?>
 
     </div>
 </main>

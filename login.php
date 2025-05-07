@@ -13,7 +13,7 @@
                 <label for="password" class="form-label me-2">Password</label>
                 <input type="password" class="form-control" id="dev-crud-password" name="password">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" id="dev-crud-login-submit" name="login_submit" class="btn btn-primary">Submit</button>
         </form>
 
     </div>
