@@ -51,3 +51,26 @@ function dev_crud_register_new_user()
         echo "error";
     }
 }
+function dev_crud_user_login() {
+    if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["login_submit"])){
+        $username = $_POST["dev_crud_username"];
+        $password = $_POST["dev_crud_password"];
+
+        global $conn;
+        $check_username= $conn->prepare("SELECT password from dc_users WHERE username=?");
+        $check_username->bind_param("s", $username);
+        $check_username->execute();
+        $check_username->bind_result($hashedPassword);
+        if($check_username->fetch() && password_verify($password,$hashedPassword)){
+            echo "logged in successfully! ";
+        }
+        else{
+            echo "Error logging in";
+        }
+        $check_username->close();
+        $conn->close();
+    }
+    else{
+        echo "Error!";
+    }
+}
