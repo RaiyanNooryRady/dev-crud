@@ -63,6 +63,7 @@ function dev_crud_user_login() {
         $check_username->bind_result($hashedPassword);
         if($check_username->fetch() && password_verify($password,$hashedPassword)){
             echo "logged in successfully! ";
+            header("Location: user-dashboard.php");
         }
         else{
             echo "Error logging in";
