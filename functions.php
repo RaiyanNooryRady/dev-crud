@@ -53,6 +53,7 @@ function dev_crud_register_new_user()
 }
 function dev_crud_user_login() {
     if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["login_submit"])){
+        session_start();
         $username = $_POST["dev_crud_username"];
         $password = $_POST["dev_crud_password"];
 
@@ -62,8 +63,11 @@ function dev_crud_user_login() {
         $check_username->execute();
         $check_username->bind_result($hashedPassword);
         if($check_username->fetch() && password_verify($password,$hashedPassword)){
+            //  Set session variable
+            $_SESSION['loggedin_user'] = $username;
             echo "logged in successfully! ";
             header("Location: user-dashboard.php");
+            exit();
         }
         else{
             echo "Error logging in";
@@ -74,4 +78,11 @@ function dev_crud_user_login() {
     else{
         echo "Error!";
     }
+}
+
+function is_user_logged_in(){
+    if(session_status()==PHP_SESSION_NONE){
+        session_start();
+    }
+    return isset($_SESSION['loggedin_user']);
 }
