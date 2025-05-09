@@ -20,15 +20,11 @@ if (!is_user_logged_in()) {
         <!-- Sidebar for desktop -->
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-2 d-none d-md-block sidebar">
-                    <h4 class="p-3">Menu</h4>
-                    <a href="#">Dashboard</a>
-                    <a href="#">Profile</a>
-                    <a href="#">Settings</a>
-                    <a href="logout.php">Logout</a>
+                <div class="col-md-3 col-lg-2 d-none d-md-block sidebar">
+                    <?php include "menu-items.php"; ?>
                 </div>
 
-                <div class="col-md-10 col-12 p-4">
+                <div class="col-md-9 col-lg-10 col-12 p-4">
                     <h1>Welcome, <?php echo $_SESSION['loggedin_user']; ?>!</h1>
                     <p>This is your dashboard content area.</p>
                 </div>
@@ -42,10 +38,7 @@ if (!is_user_logged_in()) {
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
             </div>
             <div class="offcanvas-body sidebar">
-                <a href="#">Dashboard</a>
-                <a href="#">Profile</a>
-                <a href="#">Settings</a>
-                <a href="logout.php">Logout</a>
+                <?php include "menu-items.php"; ?>
             </div>
         </div>
     </main>
