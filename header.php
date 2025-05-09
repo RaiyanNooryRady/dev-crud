@@ -32,12 +32,18 @@
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="blogs.php">Blogs</a>
                         </li>
+                        <?php if(!is_user_logged_in()){ ?>
                         <li class="nav-item">
                             <a class="nav-link" href="login.php">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="registration.php">Registration</a>
                         </li>
+                        <?php } else{?>
+                            <li class="nav-item">
+                            <a class="nav-link" href="user-dashboard.php">My Account</a>
+                        </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
