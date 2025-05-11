@@ -1,9 +1,9 @@
 <div class="menu-items">
     <h4 class="p-3">Menu</h4>
-    <a href="#">Dashboard</a>
-    <a href="#">Profile</a>
-    <a href="#">Settings</a>
-    <a href="#">Users</a>
-    <a href="#">Posts</a>
+    <a href="user-dashboard.php">Dashboard</a>
+    <a href="dashboard-profile.php">Profile</a>
+    <a href="dashboard-settings.php">Settings</a>
+    <a href="dashboard-users.php">Users</a>
+    <a href="dashboard-posts.php">Posts</a>
     <a href="logout.php">Logout</a>
 </div>
