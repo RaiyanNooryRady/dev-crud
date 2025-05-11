@@ -56,7 +56,6 @@ function dev_crud_user_login() {
         session_start();
         $username = $_POST["dev_crud_username"];
         $password = $_POST["dev_crud_password"];
-
         global $conn;
         $check_username= $conn->prepare("SELECT password from dc_users WHERE username=?");
         $check_username->bind_param("s", $username);
@@ -65,6 +64,7 @@ function dev_crud_user_login() {
         if($check_username->fetch() && password_verify($password,$hashedPassword)){
             //  Set session variable
             $_SESSION['loggedin_user'] = $username;
+            $_SESSION['loggedin_password'] = $password;
             echo "logged in successfully! ";
             header("Location: user-dashboard.php");
             exit();

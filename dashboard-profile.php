@@ -17,7 +17,30 @@ if (!is_user_logged_in()) {
 
                 <div class="col-md-9 col-lg-10 col-12 p-4">
                     <h1>Welcome, <?php echo $_SESSION['loggedin_user']; ?>!</h1>
-                    <p>This is your dashboard Profile content area.</p>
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Profile Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Username: <?php echo $_SESSION['loggedin_user']; ?></p>
+                            <p>Password: <?php echo $_SESSION['loggedin_password']; ?></p>
+
+                            <small>Change your username here</small>
+                            <form class="form-group d-flex flex-row flex-wrap" action="">
+                                <div class="flex-grow-1 mb-2 me-2">
+                                    <input type="text" class="form-control" name="dev_crud_username" value="<?php echo $_SESSION['loggedin_user']; ?>">
+                                </div>
+                                <button type="submit" class="form-control btn btn-success mb-2" style="width: auto;" name="dev_crud_username_submit">Change Username</button>
+                            </form>
+                            <small>Change your password here</small>
+                            <form class="form-group d-flex flex-row flex-wrap" action="">
+                                <div class="flex-grow-1 mb-2 me-2">
+                                    <input type="password" class="form-control" name="dev_crud_password" value="<?php echo $_SESSION['loggedin_password']; ?>">
+                                </div>
+                                <button type="submit" class="form-control btn btn-success mb-2" style="width: auto;" name="dev_crud_password_submit">Change Password</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
