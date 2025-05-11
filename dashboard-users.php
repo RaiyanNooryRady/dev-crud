@@ -27,7 +27,6 @@ if (!is_user_logged_in()) {
                                     <thead>
                                         <tr>
                                             <th>Username</th>
-                                            <th>Password</th>
                                             <th>Profile Photo</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
@@ -41,7 +40,6 @@ if (!is_user_logged_in()) {
                                             ?>
                                             <tr>
                                                 <td><?php echo htmlspecialchars($user['username']); ?></td>
-                                                <td><?php echo htmlspecialchars(($user['password'])); ?></td>
                                                 <td><img src="demo.jpg" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" alt="Profile Picture"></td>
                                                 <td><a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editUserModal<?php echo $user['id']; ?>"><i class="bi bi-pencil-square"></i></a></td>
                                                 <td><a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUserModal<?php echo $user['id']; ?>"><i class="bi bi-trash"></i></a></td>
@@ -108,6 +106,10 @@ if (!is_user_logged_in()) {
                             <div class="mb-3">
                                 <label for="edit_username<?php echo $user['id']; ?>" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="edit_username<?php echo $user['id']; ?>" name="edit_username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="edit_password<?php echo $user['id']; ?>" class="form-label">New Password (leave blank to keep current)</label>
+                                <input type="password" class="form-control" id="edit_password<?php echo $user['id']; ?>" name="edit_password">
                             </div>
                             <div class="mb-3">
                                 <label for="edit_profile_picture<?php echo $user['id']; ?>" class="form-label">Profile Picture</label>
