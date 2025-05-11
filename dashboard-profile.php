@@ -28,7 +28,7 @@ if (!is_user_logged_in()) {
                             <p>Password: <?php echo $_SESSION['loggedin_password']; ?></p>
 
                             <small>Change your profile picture here</small>
-                            <form class="form-group d-flex flex-row flex-wrap" action="">
+                            <form class="form-group d-flex flex-row flex-wrap" action="" method="POST">
                                 <div class="flex-grow-1 mb-2 me-2">
                                     <input type="file" class="form-control" name="dev_crud_profile_picture">
                                 </div>
@@ -36,14 +36,15 @@ if (!is_user_logged_in()) {
                             </form>
 
                             <small>Change your username here</small>
-                            <form class="form-group d-flex flex-row flex-wrap" action="">
+                            <form class="form-group d-flex flex-row flex-wrap" action="" method="POST">
                                 <div class="flex-grow-1 mb-2 me-2">
                                     <input type="text" class="form-control" name="dev_crud_username" value="<?php echo $_SESSION['loggedin_user']; ?>">
                                 </div>
                                 <button type="submit" class="form-control btn btn-success mb-2" style="width: auto;" name="dev_crud_username_submit">Change Username</button>
                             </form>
+                            <?php dev_crud_change_username(); ?>
                             <small>Change your password here</small>
-                            <form class="form-group d-flex flex-row flex-wrap" action="">
+                            <form class="form-group d-flex flex-row flex-wrap" action="" method="POST">
                                 <div class="flex-grow-1 mb-2 me-2">
                                     <input type="password" class="form-control" name="dev_crud_password" value="<?php echo $_SESSION['loggedin_password']; ?>">
                                 </div>

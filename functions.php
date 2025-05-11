@@ -86,3 +86,27 @@ function is_user_logged_in(){
     }
     return isset($_SESSION['loggedin_user']);
 }
+
+function dev_crud_change_username(){
+    if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["dev_crud_username_submit"])){
+        $new_username = $_POST["dev_crud_username"];
+        global $conn;
+        $check_username = $conn->prepare("SELECT id from dc_users WHERE username=?");
+        $check_username->bind_param("s", $new_username);
+        $check_username->execute();
+        $check_username->store_result();
+        if($check_username->num_rows > 0){
+            echo "username already exists!";
+        }
+        else{
+            $update_username = $conn->prepare("UPDATE dc_users SET username=? WHERE username=?");
+            $update_username->bind_param("ss", $new_username, $_SESSION['loggedin_user']);
+            if($update_username->execute()){
+                $_SESSION['loggedin_user'] = $new_username;
+                echo "username updated successfully!";
+            }
+            
+        }
+        
+    }
+}
