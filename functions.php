@@ -105,8 +105,35 @@ function dev_crud_change_username(){
                 $_SESSION['loggedin_user'] = $new_username;
                 echo "username updated successfully!";
             }
-            
+            else{
+                echo "Error updating username!";
+            }
+            $update_username->close();
+            $conn->close();
         }
+
         
+    }
+}
+function dev_crud_change_password(){
+    if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["dev_crud_password_submit"])){
+        $new_password = $_POST["dev_crud_password"];
+        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+        global $conn;
+        $update_password= $conn->prepare("UPDATE dc_users SET password=? WHERE username=?");
+        $update_password->bind_param("ss",$hashed_password,$_SESSION['loggedin_user']);
+        if($update_password->execute()){
+            $_SESSION['loggedin_password'] = $new_password;
+            echo "Password updated successfully!";
+        }
+        else{
+            echo "Error updating password!";
+        }
+        $update_password->close();
+        $conn->close();
+        
+    }
+    else{
+        echo "Error!";
     }
 }

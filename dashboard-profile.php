@@ -50,6 +50,7 @@ if (!is_user_logged_in()) {
                                 </div>
                                 <button type="submit" class="form-control btn btn-success mb-2" style="width: auto;" name="dev_crud_password_submit">Change Password</button>
                             </form>
+                            <?php dev_crud_change_password();?>
                         </div>
                     </div>
                 </div>
