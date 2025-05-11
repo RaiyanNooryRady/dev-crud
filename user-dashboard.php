@@ -7,16 +7,7 @@ if (!is_user_logged_in()) {
     ?>
     <main class="dev-crud-main" id="dev-crud-dashboard">
 
-        <!-- Mobile Navbar -->
-        <nav class="navbar navbar-dark bg-dark d-md-none">
-            <div class="container-fluid">
-                <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
-                    ☰
-                </button>
-                <span class="navbar-text text-white">Dashboard</span>
-            </div>
-        </nav>
-
+        <?php require "dashboard-mobile-navbar.php"; ?>
         <!-- Sidebar for desktop -->
         <div class="container-fluid">
             <div class="row">
@@ -30,17 +21,7 @@ if (!is_user_logged_in()) {
                 </div>
             </div>
         </div>
-
-        <!-- Offcanvas Sidebar for mobile -->
-        <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="mobileSidebar">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title">Menu</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-            </div>
-            <div class="offcanvas-body sidebar">
-                <?php include "menu-items.php"; ?>
-            </div>
-        </div>
+        <?php require "dashboard-offcanvas.php"; ?>
     </main>
 <?php }
 require "footer.php"; ?>
