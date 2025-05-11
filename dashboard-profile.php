@@ -16,14 +16,24 @@ if (!is_user_logged_in()) {
                 </div>
 
                 <div class="col-md-9 col-lg-10 col-12 p-4">
-                    <h1>Welcome, <?php echo $_SESSION['loggedin_user']; ?>!</h1>
                     <div class="card">
                         <div class="card-header">
                             <h5>Profile Information</h5>
                         </div>
                         <div class="card-body">
+                            <div class="text-center mb-4">
+                                <img src="demo.jpg" alt="Profile Picture" class="img-fluid rounded-circle dev-crud-profile-picture">
+                            </div>
                             <p>Username: <?php echo $_SESSION['loggedin_user']; ?></p>
                             <p>Password: <?php echo $_SESSION['loggedin_password']; ?></p>
+
+                            <small>Change your profile picture here</small>
+                            <form class="form-group d-flex flex-row flex-wrap" action="">
+                                <div class="flex-grow-1 mb-2 me-2">
+                                    <input type="file" class="form-control" name="dev_crud_profile_picture">
+                                </div>
+                                <button type="submit" class="form-control btn btn-success mb-2" style="width: auto;" name="dev_crud_profile_picture_submit">Change Profile Picture</button>
+                            </form>
 
                             <small>Change your username here</small>
                             <form class="form-group d-flex flex-row flex-wrap" action="">
