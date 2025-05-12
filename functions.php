@@ -48,109 +48,107 @@ function dev_crud_register_new_user()
         echo "error";
     }
 }
-function dev_crud_user_login() {
-    if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["login_submit"])){
+function dev_crud_user_login()
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login_submit"])) {
         session_start();
         $username = $_POST["dev_crud_username"];
         $password = $_POST["dev_crud_password"];
         global $conn;
-        $check_username= $conn->prepare("SELECT password from dc_users WHERE username=?");
+        $check_username = $conn->prepare("SELECT password from dc_users WHERE username=?");
         $check_username->bind_param("s", $username);
         $check_username->execute();
         $check_username->bind_result($hashedPassword);
-        if($check_username->fetch() && password_verify($password,$hashedPassword)){
+        if ($check_username->fetch() && password_verify($password, $hashedPassword)) {
             //  Set session variable
             $_SESSION['loggedin_user'] = $username;
             $_SESSION['loggedin_password'] = $password;
             echo "logged in successfully! ";
             header("Location: user-dashboard.php");
             exit();
-        }
-        else{
+        } else {
             echo "Error logging in";
         }
         $check_username->close();
         $conn->close();
-    }
-    else{
+    } else {
         echo "Error!";
     }
 }
 
-function is_user_logged_in(){
-    if(session_status()==PHP_SESSION_NONE){
+function is_user_logged_in()
+{
+    if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
     return isset($_SESSION['loggedin_user']);
 }
 
-function dev_crud_change_username(){
-    if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["dev_crud_username_submit"])){
+function dev_crud_change_username()
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["dev_crud_username_submit"])) {
         $new_username = $_POST["dev_crud_username"];
         global $conn;
         $check_username = $conn->prepare("SELECT id from dc_users WHERE username=?");
         $check_username->bind_param("s", $new_username);
         $check_username->execute();
         $check_username->store_result();
-        if($check_username->num_rows > 0){
+        if ($check_username->num_rows > 0) {
             echo "username already exists!";
-        }
-        else{
+        } else {
             $update_username = $conn->prepare("UPDATE dc_users SET username=? WHERE username=?");
             $update_username->bind_param("ss", $new_username, $_SESSION['loggedin_user']);
-            if($update_username->execute()){
+            if ($update_username->execute()) {
                 $_SESSION['loggedin_user'] = $new_username;
                 echo "username updated successfully!";
-            }
-            else{
+            } else {
                 echo "Error updating username!";
             }
             $update_username->close();
             $conn->close();
         }
 
-        
+
     }
 }
-function dev_crud_change_password(){
-    if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["dev_crud_password_submit"])){
+function dev_crud_change_password()
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["dev_crud_password_submit"])) {
         $new_password = $_POST["dev_crud_password"];
         $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
         global $conn;
-        $update_password= $conn->prepare("UPDATE dc_users SET password=? WHERE username=?");
-        $update_password->bind_param("ss",$hashed_password,$_SESSION['loggedin_user']);
-        if($update_password->execute()){
+        $update_password = $conn->prepare("UPDATE dc_users SET password=? WHERE username=?");
+        $update_password->bind_param("ss", $hashed_password, $_SESSION['loggedin_user']);
+        if ($update_password->execute()) {
             $_SESSION['loggedin_password'] = $new_password;
             echo "Password updated successfully!";
-        }
-        else{
+        } else {
             echo "Error updating password!";
         }
         $update_password->close();
         $conn->close();
-        
-    }
-    else{
+
+    } else {
         echo "Error!";
     }
 }
 
-function dev_crud_delete_user(){
-    if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["delete_user"])){
-        $user_id= $_POST["delete_user_id"];
-        global $conn;;
-        $delete_user= $conn->prepare("DELETE FROM dc_users WHERE id=?");
-        $delete_user->bind_param("i",$user_id);
-        if($delete_user->execute()){
+function dev_crud_delete_user()
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_user"])) {
+        $user_id = $_POST["delete_user_id"];
+        global $conn;
+        ;
+        $delete_user = $conn->prepare("DELETE FROM dc_users WHERE id=?");
+        $delete_user->bind_param("i", $user_id);
+        if ($delete_user->execute()) {
             echo "User deleted successfully!";
-            header("Location: dashboard-users.php");
             exit();
-        }
-        else{
+        } else {
             echo "Error deleting user!";
+
         }
         $delete_user->close();
         $conn->close();
-        
     }
 }
