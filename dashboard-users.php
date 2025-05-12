@@ -40,7 +40,7 @@ if (!is_user_logged_in()) {
                                             ?>
                                             <tr>
                                                 <td><?php echo htmlspecialchars($user['username']); ?></td>
-                                                <td><img src="demo.jpg" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" alt="Profile Picture"></td>
+                                                <td><img src="demo.jpg" class="rounded-circle dev-crud-user-photo" alt="Profile Picture"></td>
                                                 <td><a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editUserModal<?php echo $user['id']; ?>"><i class="bi bi-pencil-square"></i></a></td>
                                                 <td><a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteUserModal<?php echo $user['id']; ?>"><i class="bi bi-trash"></i></a></td>
                                             </tr>
@@ -142,6 +142,7 @@ if (!is_user_logged_in()) {
                             <input type="hidden" name="delete_user_id" value="<?php echo $user['id']; ?>">
                             <button type="submit" name="delete_user" class="btn btn-danger">Delete</button>
                         </form>
+                        <?php dev_crud_delete_user(); ?>
                     </div>
                 </div>
             </div>

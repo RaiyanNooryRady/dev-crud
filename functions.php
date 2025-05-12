@@ -137,3 +137,23 @@ function dev_crud_change_password(){
         echo "Error!";
     }
 }
+
+function dev_crud_delete_user(){
+    if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST["delete_user"])){
+        $user_id= $_POST["delete_user_id"];
+        global $conn;;
+        $delete_user= $conn->prepare("DELETE FROM dc_users WHERE id=?");
+        $delete_user->bind_param("i",$user_id);
+        if($delete_user->execute()){
+            echo "User deleted successfully!";
+            header("Location: dashboard-users.php");
+            exit();
+        }
+        else{
+            echo "Error deleting user!";
+        }
+        $delete_user->close();
+        $conn->close();
+        
+    }
+}
