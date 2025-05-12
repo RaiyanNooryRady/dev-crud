@@ -85,9 +85,10 @@ if (!is_user_logged_in()) {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" name="add_user" class="btn btn-primary">Add User</button>
+                            <button type="submit" name="register_submit" class="btn btn-primary">Add User</button>
                         </div>
                     </form>
+                    <?php dev_crud_register_new_user(); ?>
                 </div>
             </div>
         </div>

@@ -6,9 +6,6 @@ function dev_crud_register_new_user()
         $password = $_POST["password"];
         $confirm_password = $_POST["confirm_password"];
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-
-
         //prepare insert query
         global $conn;
 
