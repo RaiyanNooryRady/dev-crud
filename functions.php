@@ -152,3 +152,32 @@ function dev_crud_delete_user()
         $conn->close();
     }
 }
+
+function dev_crud_edit_user(){
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_user_save"])){
+        $new_username = $_POST["edit_username"];
+        $new_password = $_POST["edit_password"];
+        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+        global $conn;
+        $check_username= $conn->prepare("SELECT id from dc_users WHERE username=?");
+        $check_username->bind_param("s", $new_username);
+        $check_username->execute();
+        $check_username->store_result();
+        if($check_username->num_rows > 0){
+            echo "username already exists!";
+        }else{
+            $update_user= $conn->prepare(" UPDATE dc_users SET username=?, password=? WHERE username=?");
+            $update_user->bind_param("sss", $new_username, $hashed_password, $_SESSION['loggedin_user']);
+            if($update_user->execute()){
+                $_SESSION['loggedin_user'] = $new_username;
+                $_SESSION['loggedin_password'] = $new_password;
+                echo "User updated successfully!";
+            }else{
+                echo "Error updating user!";
+            }
+            $update_user->close();
+            $conn->close();
+        }
+        
+    }
+}

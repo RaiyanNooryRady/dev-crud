@@ -119,9 +119,10 @@ if (!is_user_logged_in()) {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" name="edit_user" class="btn btn-primary">Save Changes</button>
+                            <button type="submit" name="edit_user_save" class="btn btn-primary">Save Changes</button>
                         </div>
                     </form>
+                    <?php dev_crud_edit_user(); ?>
                 </div>
             </div>
         </div>
