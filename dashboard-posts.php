@@ -115,6 +115,7 @@ if (!is_user_logged_in()) {
                         </div>
                         <form action="" method="POST">
                             <div class="modal-body">
+                                <input type="hidden" name="edit_post_id" value="<?php echo $post['id']; ?>">
                                 <div class="mb-3">
                                     <label for="edit_title<?php echo $post['id']; ?>" class="form-label">Title</label>
                                     <input type="text" class="form-control" id="edit_title<?php echo $post['id']; ?>"
@@ -143,7 +144,7 @@ if (!is_user_logged_in()) {
                                 <button type="submit" name="edit_post_save" class="btn btn-primary">Save Changes</button>
                             </div>
                         </form>
-                        <?php //dev_crud_edit_post(); ?>
+                        <?php dev_crud_edit_post(); ?>
                     </div>
                 </div>
             </div>

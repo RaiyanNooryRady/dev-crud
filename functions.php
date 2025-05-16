@@ -219,3 +219,23 @@ function dev_crud_delete_post()
         $conn->close();
     }
 }
+function dev_crud_edit_post()
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_post_save"])) {
+        $post_id = $_POST["edit_post_id"];
+        $new_title = $_POST["edit_title"];
+        $new_featured_image = $_POST["edit_featured_image"];
+        $new_content = $_POST["edit_content"];
+        $new_author = $_POST["edit_author"];
+        global $conn;
+        $update_post = $conn->prepare("UPDATE dc_posts SET title=?, featured_image=?, content=?, author=? WHERE id=?");
+        $update_post->bind_param("ssssi", $new_title, $new_featured_image, $new_content, $new_author, $post_id);
+        if ($update_post->execute()) {
+            echo "Post updated successfully!";
+        } else {
+            echo "Error updating post!";
+        }
+        $update_post->close();
+        $conn->close();
+    }
+}
