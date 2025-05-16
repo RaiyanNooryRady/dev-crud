@@ -196,10 +196,8 @@ function dev_crud_add_new_post()
         $stmt->bind_param("ssss", $data['title'], $data['featured_image'], $data['content'], $data['author']);
         if ($stmt->execute()) {
             echo "Post added successfully!";
-            echo "<script>alert('Post added successfully!');</script>";
         } else {
             echo "Error adding post!";
-            echo "<script>alert('Error adding post!');</script>";
         }
         $stmt->close();
         $conn->close();
