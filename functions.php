@@ -153,31 +153,55 @@ function dev_crud_delete_user()
     }
 }
 
-function dev_crud_edit_user(){
-    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_user_save"])){
+function dev_crud_edit_user()
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_user_save"])) {
         $new_username = $_POST["edit_username"];
         $new_password = $_POST["edit_password"];
         $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
         global $conn;
-        $check_username= $conn->prepare("SELECT id from dc_users WHERE username=?");
+        $check_username = $conn->prepare("SELECT id from dc_users WHERE username=?");
         $check_username->bind_param("s", $new_username);
         $check_username->execute();
         $check_username->store_result();
-        if($check_username->num_rows > 0){
+        if ($check_username->num_rows > 0) {
             echo "username already exists!";
-        }else{
-            $update_user= $conn->prepare(" UPDATE dc_users SET username=?, password=? WHERE username=?");
+        } else {
+            $update_user = $conn->prepare(" UPDATE dc_users SET username=?, password=? WHERE username=?");
             $update_user->bind_param("sss", $new_username, $hashed_password, $_SESSION['loggedin_user']);
-            if($update_user->execute()){
+            if ($update_user->execute()) {
                 $_SESSION['loggedin_user'] = $new_username;
                 $_SESSION['loggedin_password'] = $new_password;
                 echo "User updated successfully!";
-            }else{
+            } else {
                 echo "Error updating user!";
             }
             $update_user->close();
             $conn->close();
         }
-        
+
+    }
+}
+function dev_crud_add_new_post()
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_post_submit"])) {
+        $data = [
+            'title' => $_POST['title'],
+            'featured_image' => $_POST['featured_image'],
+            'content' => $_POST['content'],
+            'author' => $_SESSION['loggedin_user']
+        ];
+        global $conn;
+        $stmt = $conn->prepare("INSERT INTO dc_posts(title, featured_image, content, author) VALUES(?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $data['title'], $data['featured_image'], $data['content'], $data['author']);
+        if ($stmt->execute()) {
+            echo "Post added successfully!";
+            echo "<script>alert('Post added successfully!');</script>";
+        } else {
+            echo "Error adding post!";
+            echo "<script>alert('Error adding post!');</script>";
+        }
+        $stmt->close();
+        $conn->close();
     }
 }

@@ -31,6 +31,7 @@ if (!is_user_logged_in()) {
                                             <th>Post Title</th>
                                             <th>Featured Image</th>
                                             <th>Post Content</th>
+                                            <th>Author</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
                                         </tr>
@@ -47,6 +48,7 @@ if (!is_user_logged_in()) {
                                                 <td><img src="<?php echo $post['featured_image']; ?>"
                                                         class="rounded-circle dev-crud-user-photo" alt="Profile Picture"></td>
                                                 <td><?php echo htmlspecialchars($post['content']); ?></td>
+                                                <td><?php echo htmlspecialchars($post['author']); ?></td>
                                                 <td><a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                                         data-bs-target="#editPostModal<?php echo $post['id']; ?>"><i
                                                             class="bi bi-pencil-square"></i></a></td>
@@ -87,13 +89,17 @@ if (!is_user_logged_in()) {
                                 <label for="content" class="form-label">Content</label>
                                 <textarea class="form-control" id="content" name="content" required></textarea>
                             </div>
+                            <div class="mb-3">
+                                <label for="author" class="form-label">Author</label>
+                                <input type="text" class="form-control" id="author" name="author" value="<?php echo $_SESSION['loggedin_user']; ?>" readonly>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" name="add_post_submit" class="btn btn-primary">Add Post</button>
                         </div>
                     </form>
-                    <?php //dev_crud_add_new_post(); ?>
+                    <?php dev_crud_add_new_post(); ?>
                 </div>
             </div>
         </div>
@@ -119,6 +125,10 @@ if (!is_user_logged_in()) {
                             <div class="mb-3">
                                 <label for="edit_content<?php echo $post['id']; ?>" class="form-label">Content</label>
                                 <textarea class="form-control" id="edit_content<?php echo $post['id']; ?>" name="edit_content" required><?php echo htmlspecialchars($post['content']); ?></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="edit_author<?php echo $post['id']; ?>" class="form-label">Author</label>
+                                <input type="text" class="form-control" id="edit_author<?php echo $post['id']; ?>" name="edit_author" value="<?php echo htmlspecialchars($post['author']); ?>" readonly>
                             </div>
                         </div>
                         <div class="modal-footer">
