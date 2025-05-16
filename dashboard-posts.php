@@ -39,19 +39,19 @@ if (!is_user_logged_in()) {
                                         <?php
                                         global $conn;
                                         $posts = $conn->query("SELECT * FROM dc_posts");
-                                        foreach ($users as $user) {
+                                        foreach ($posts as $post) {
                                             ?>
                                             <tr>
-                                                <th><?php echo htmlspecialchars($post['id']); ?></th>
+                                                <td><?php echo htmlspecialchars($post['id']); ?></td>
                                                 <td><?php echo htmlspecialchars($post['title']); ?></td>
                                                 <td><img src="<?php echo $post['featured_image']; ?>"
                                                         class="rounded-circle dev-crud-user-photo" alt="Profile Picture"></td>
                                                 <td><?php echo htmlspecialchars($post['content']); ?></td>
                                                 <td><a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                                        data-bs-target="#editPostModal<?php echo $user['id']; ?>"><i
+                                                        data-bs-target="#editPostModal<?php echo $post['id']; ?>"><i
                                                             class="bi bi-pencil-square"></i></a></td>
                                                 <td><a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                        data-bs-target="#deletePostModal<?php echo $user['id']; ?>"><i
+                                                        data-bs-target="#deletePostModal<?php echo $post['id']; ?>"><i
                                                             class="bi bi-trash"></i></a></td>
                                             </tr>
                                             <?php
@@ -65,6 +65,96 @@ if (!is_user_logged_in()) {
                 </div>
             </div>
         </div>
+        <!-- Add Post Modal -->
+        <div class="modal fade" id="addPostModal" tabindex="-1" aria-labelledby="addPostModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addPostModalLabel">Add New Post</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="" method="POST">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="title" name="title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="featured_image" class="form-label">Featured Image</label>
+                                <input type="file" class="form-control" id="featured_image" name="featured_image" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="content" class="form-label">Content</label>
+                                <textarea class="form-control" id="content" name="content" required></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" name="add_post_submit" class="btn btn-primary">Add Post</button>
+                        </div>
+                    </form>
+                    <?php //dev_crud_add_new_post(); ?>
+                </div>
+            </div>
+        </div>
+        <!-- Edit Post Modal -->    
+        <?php foreach ($posts as $post) { ?>
+        <div class="modal fade" id="editPostModal<?php echo $post['id']; ?>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Post: <?php echo htmlspecialchars($post['title']); ?></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="" method="POST">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="edit_title<?php echo $post['id']; ?>" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="edit_title<?php echo $post['id']; ?>" name="edit_title" value="<?php echo htmlspecialchars($post['title']); ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="edit_featured_image<?php echo $post['id']; ?>" class="form-label">Featured Image</label>
+                                <input type="file" class="form-control" id="edit_featured_image<?php echo $post['id']; ?>" name="edit_featured_image">
+                            </div>
+                            <div class="mb-3">
+                                <label for="edit_content<?php echo $post['id']; ?>" class="form-label">Content</label>
+                                <textarea class="form-control" id="edit_content<?php echo $post['id']; ?>" name="edit_content" required><?php echo htmlspecialchars($post['content']); ?></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" name="edit_post_save" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                    <?php //dev_crud_edit_post(); ?>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Post Modal -->
+        <div class="modal fade" id="deletePostModal<?php echo $post['id']; ?>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Post</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete post "<?php echo htmlspecialchars($post['title']); ?>"?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <form action="" method="POST" style="display: inline;">
+                            <input type="hidden" name="delete_post_id" value="<?php echo $post['id']; ?>">
+                            <button type="submit" name="delete_post" class="btn btn-danger">Delete</button>
+                        </form>
+                        <?php //dev_crud_delete_post(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+        
         <?php require "dashboard-offcanvas.php"; ?>
     </main>
 <?php }
