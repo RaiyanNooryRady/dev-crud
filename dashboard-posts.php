@@ -75,7 +75,7 @@ if (!is_user_logged_in()) {
                         <h5 class="modal-title" id="addPostModalLabel">Add New Post</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="" method="POST">
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
@@ -113,7 +113,7 @@ if (!is_user_logged_in()) {
                             <h5 class="modal-title">Edit Post: <?php echo htmlspecialchars($post['title']); ?></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="" method="POST">
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="edit_title<?php echo $post['id']; ?>" class="form-label">Title</label>
@@ -165,7 +165,7 @@ if (!is_user_logged_in()) {
                                 <input type="hidden" name="delete_post_id" value="<?php echo $post['id']; ?>">
                                 <button type="submit" name="delete_post" class="btn btn-danger">Delete</button>
                             </form>
-                            <?php //dev_crud_delete_post(); ?>
+                            <?php dev_crud_delete_post(); ?>
                         </div>
                     </div>
                 </div>

@@ -203,3 +203,19 @@ function dev_crud_add_new_post()
         $conn->close();
     }
 }
+function dev_crud_delete_post()
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["delete_post"])) {
+        $post_id = $_POST["delete_post_id"];
+        global $conn;
+        $delete_post = $conn->prepare("DELETE FROM dc_posts WHERE id=?");
+        $delete_post->bind_param("i", $post_id);
+        if ($delete_post->execute()) {
+            echo "Post deleted successfully!";
+        } else {
+            echo "Error deleting post!";
+        }
+        $delete_post->close();
+        $conn->close();
+    }
+}
